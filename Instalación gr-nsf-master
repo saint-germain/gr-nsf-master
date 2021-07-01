@@ -1,0 +1,84 @@
+INSTALACIÓN PAQUETE GR-MASTER EN GNURADIO (UBUNTU).
+
+1) Instalar Gnuradio.
+
+	Es importante tener en cuenta que se debe instalar la version 3.7 de Gnuradio, 
+	pues a partir de la versión 3.8 se hacieron grandes cambios que no permiten el 
+	uso del paquete gr-master. Uno de los cambios mas significativos que se hizo 
+	es que el formato de los archivos que contiene la carpeta grc(bloques) pasó de 
+	ser XML a YAML, y como los archivos grc de gr-nsf-master estan en XML no hay 
+	compatibilidad con la versión 3.8 de gnuradio. Otro aspecto que se debe tener 
+	en cuenta para no usar versiones de la 3.8 en adelante, es que no vienen incluidos
+	los paquetes gr-wxgui y osmosdr, y al instalarlos por separado se pueden presentar
+	una serie de incovenientes. 
+
+    	$ sudo add-apt-repository ppa:gnuradio/gnuradio/gnuradio-releases-3.7
+	
+	
+	$ sudo apt-get update
+
+
+	$ sudo apt install gnuradio
+
+2) Copiar los ejecutables de python de gr-nsf-master en la ruta de las librerias de python2.7
+   del computador 
+
+   	Desde la terminal con permisos de administrador se copian los archivos .py que estan
+	en /gr-nsf-master/python en la dirección /usr/lib/python2.7
+ 	
+	OJO!!! Algunos archivos .not como el de NsfIntegrate60(Watch60.not) no se encuentran
+	en la dirección /gr-nsf-master/python, así que se deben copiar desde la carpeta 
+	/gr-nsf-master/examples los que falten(Watch60.not,Watch63.not, etc) 
+
+3) Copiar los archivos .grc a la ruta donde esta instalado gnuradio para integrar los bloques 
+   del paquete en gnuradio
+	
+	Desde la terminal con permisos de administrador se copian los archivos .py que estan
+	en /gr-nsf-master/grc en la dirección /usr/share/gnuradio/grc/blocks
+
+
+POSIBLES INCONVENIENTES
+
+- Al ejecutar un archivo .grc en gnuradio aparece un cuadro de dialogo con el mensaje:
+     '  Warning: missing xterm executable
+	The xterm executable " is missing  '
+  SN: se ejecuta en la terminal $sudo apt-get install xterm
+
+- Cuando se instala gnuradio 3.7 el programa funciona pero al ejecutar un archivo NsfIntegrate
+  del paquete aparece el siguiente mensaje:
+     '  Ephemerous Python Code needed!
+	In Linux type:
+		sudo apt-get install python-dev
+		sudo apt-get install python-pip
+		sudo pip install pyephem  '
+  SN: Se ejecutan los siguientes comandos:
+        $ sudo apt update
+	$ sudo apt install python-pip
+	$ python2.7 -m pip install python-dev-tools --user --upgrade
+	$ python2.7 -m pip install pyephem	
+
+      OJO!!! A la hora de hacer la instalacion se debe especificar que se instale a python 2.7 
+      porque si el computador tambien tiene python 3.6 se va a instalar el paquete en este. Por 
+      lo que no se ejecutará correctamente el archivo grc, ya los archivos de gr-nsf-master 
+      trabajan con python 2.7
+ 
+- Si se esta trabajando con un USRP y el sistema no lo encuentra con el comando 
+  uhd_find_devices en la terminal aparece el siguiente error:
+
+      ' UHD Warning: EnvironmentError: IOError: Could not find path for image: 
+	usrp_b200_fw.hex
+	Using images directory : <no images directory locates>
+	Set the environment variable 'UHD_IMAGES_DIR' appropriately or follow the below
+	instructions to download the images package
+	Please run:
+	/usr/lib/x86_64-linux-gnu/uhd/utils/uhd_images_downloader.py
+	No UHD Devices Found '
+	
+  SN: Si al ejecutar el comando que indican en el mensaje anterior el sistema dice que el
+      el archivo no se encuentra en la ruta, posiblemente el archivo fue alojado en otra
+      carpeta cuando se instaló la libreria UHD. Así que, con permisos de administrador se 
+      mueve el archivo .py desde la ruta /usr/lib/uhd/utils/uhd_images_downloader.py a la
+      ruta /usr/lib/x86_64-linux-gnu/uhd/utils/uhd_images_downloader.py
+
+- 
+
