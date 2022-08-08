@@ -85,7 +85,11 @@ class NsfIntegrate60(gr.top_block, Qt.QWidget):
         try: fftsize_save = self._fftsize_save_config.getint('main', 'fftsize')
         except: fftsize_save = 1024
         self.fftsize_save = fftsize_save
-        self.Frequency = Frequency = 105900000
+	self._Frequencys_config = ConfigParser.ConfigParser()
+        self._Frequencys_config.read(ConfigFile)
+        try: frequency_save = self._Frequencys_config.getfloat('main', 'Frequency')
+	except: frequency_save = 115900000
+        self.Frequency = Frequency = frequency_save
         self.Bandwidth = Bandwidth = Bandwidths
         self._xaxis_save_config = ConfigParser.ConfigParser()
         self._xaxis_save_config.read(ConfigFile)
@@ -95,12 +99,12 @@ class NsfIntegrate60(gr.top_block, Qt.QWidget):
         self._telescope_save_config = ConfigParser.ConfigParser()
         self._telescope_save_config.read(ConfigFile)
         try: telescope_save = self._telescope_save_config.get('main', 'telescope')
-        except: telescope_save = 'Bubble Wrap Horn'
+        except: telescope_save = 'Not set'
         self.telescope_save = telescope_save
         self._observers_save_config = ConfigParser.ConfigParser()
         self._observers_save_config.read(ConfigFile)
         try: observers_save = self._observers_save_config.get('main', 'observers')
-        except: observers_save = 'Katherine, Nathaniel, Glen'
+        except: observers_save = 'Not set'
         self.observers_save = observers_save
         self.numin = numin = (Frequency - (Bandwidth/2.))
         self._nAves_config = ConfigParser.ConfigParser()
@@ -347,10 +351,10 @@ class NsfIntegrate60(gr.top_block, Qt.QWidget):
         		channels=range(1),
         	),
         )
-        self.uhd_usrp_source_0.set_samp_rate(4500000)
-        self.uhd_usrp_source_0.set_center_freq(105900000, 0)
-        self.uhd_usrp_source_0.set_gain(50, 0)
-        self.uhd_usrp_source_0.set_bandwidth(60000, 0)
+        self.uhd_usrp_source_0.set_samp_rate(Bandwidth)
+        self.uhd_usrp_source_0.set_center_freq(frequency_save, 0)
+        self.uhd_usrp_source_0.set_gain(Gain1s, 0)
+        self.uhd_usrp_source_0.set_bandwidth(Bandwidth, 0)        		 
         self.uhd_usrp_source_0.set_auto_dc_offset(True, 0)
         self.uhd_usrp_source_0.set_auto_iq_balance(True, 0)
         self.ra_vmedian_5 = ra_vmedian.ra_vmedian(fftsize, 4)
