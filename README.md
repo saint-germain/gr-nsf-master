@@ -1,4 +1,17 @@
 ## gr-nsf
+
+Recommendations for running a minimum version for ra_integrate + USRP
+
+ - export PYTHONPATH="${PYTHONPATH}:/home/antena/Downloads/gr-nsf-master-main/python"
+ - pip install pyephem 
+ - sudo uhd_images_downloader
+ - cd home/antena/Downloads/gr-nsf-master-main/examples/
+ - python examples/NsfIntegrate60.py
+
+ - Watch60.conf in same dir as Nsf
+
+
+
 ### Nsf-Integrate: Library of Gnuradio Companion (GRC) blocks and Python code for Radio Astronomy
 
 This repository contains relatively simple GRC blocks to improve averaging of
