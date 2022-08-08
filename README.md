@@ -1,14 +1,15 @@
 ## gr-nsf
 
-Recommendations for running a minimum version for ra_integrate + USRP
+Recommendations for installing a minimum version for ra_integrate + USRP
 
  - export PYTHONPATH="${PYTHONPATH}:/home/antena/Downloads/gr-nsf-master-main/python"
  - pip install pyephem 
  - sudo uhd_images_downloader
  - cd home/antena/Downloads/gr-nsf-master-main/examples/
- - python examples/NsfIntegrate60.py
 
- - Watch60.conf in same dir as Nsf
+Running the GUI
+ - Watch60.conf in same folder as Nsf (examples). This is the settings file.
+ - ```python examples/NsfIntegrate60.py```
 
 
 
