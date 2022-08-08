@@ -2,6 +2,7 @@
 
 Recommendations for installing a minimum working version for ra_integrate + USRP
 
+ - Install gnuradio 3.7
  - ```export PYTHONPATH="${PYTHONPATH}:/home/antena/Downloads/gr-nsf-master-main/python"```
  - ```pip install pyephem ```
  - ```sudo uhd_images_downloader```
