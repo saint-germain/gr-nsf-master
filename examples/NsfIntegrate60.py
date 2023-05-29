@@ -74,6 +74,8 @@ class NsfIntegrate60(gr.top_block, Qt.QWidget):
         ##################################################
         # Variables
         ##################################################
+        self.usrp_amp_bw = 10000000.0
+        usrp_amp_bw=self.usrp_amp_bw
         self.ConfigFile = ConfigFile = "Watch60.conf"
         self._Bandwidths_config = ConfigParser.ConfigParser()
         self._Bandwidths_config.read(ConfigFile)
@@ -140,7 +142,7 @@ class NsfIntegrate60(gr.top_block, Qt.QWidget):
         except: Azimuth_save = 90.
         self.Azimuth_save = Azimuth_save
         self.yunits = yunits = ["Counts", "Power (dB)", "Intensity (Kelvins)"]
-        self.ymins = ymins = [ 0.01,  -20,  80.]
+        self.ymins = ymins = [ 0.01,  -80,  80.]
         self.ymaxs = ymaxs = [7., 10., 200.]
         self.xsteps = xsteps = [Bandwidth*1.E-6/fftsize, -Bandwidth*3.E5/(H1*fftsize), 1]
         self.xmins = xmins = [numin*1E-6, (H1 - numin)*(3E5/H1), 0 ]
@@ -354,7 +356,7 @@ class NsfIntegrate60(gr.top_block, Qt.QWidget):
         self.uhd_usrp_source_0.set_samp_rate(Bandwidth)
         self.uhd_usrp_source_0.set_center_freq(frequency_save, 0)
         self.uhd_usrp_source_0.set_gain(Gain1s, 0)
-        self.uhd_usrp_source_0.set_bandwidth(Bandwidth, 0)        		 
+        self.uhd_usrp_source_0.set_bandwidth(usrp_amp_bw, 0)        		 
         self.uhd_usrp_source_0.set_auto_dc_offset(True, 0)
         self.uhd_usrp_source_0.set_auto_iq_balance(True, 0)
         self.ra_vmedian_5 = ra_vmedian.ra_vmedian(fftsize, 4)
