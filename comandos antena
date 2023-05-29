@@ -1,0 +1,4 @@
+cd Downloads/gr-nsf-master-main/examples/
+gedit Watch60.conf
+python NsfIntegrate60.py 
+

@@ -1,0 +1,4 @@
+Bandwidth = Span, samp_rate
+usrp_lna_bw = USRP filter bandwidth
+files in /data/ , extension .ast
+
